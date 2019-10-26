@@ -17,17 +17,6 @@ public class Main {
     }
 
     // escolha de campiaão [ caso a escolha seja [1] ]
-    static int ChooseChampion(int chooseOption) {
-        System.out.println("[ 1 ] - Create New Champion ");
-        System.out.println("[ 0 ] - Back");
-
-
-        if(chooseOption == 0) {
-            Menu();
-        }
-
-        return input.nextInt();
-    }
 
     // menu de opções [ caso a escolha seja [2] ]
     static int Options(int chooseOption) {
@@ -65,13 +54,11 @@ public class Main {
         } else {
             System.out.println("You're Welcome " + championName + "!");
         }
-
-        attack(championName);
     }
 
 
     static void gameStatus(int playerHP, int bossHP, int specialAttack){
-        System.out.println("=-=-=--=-=-=--=-=-=--=-==-=-=-=-=-=-=-");
+        System.out.println("\n=-=-=--=-=-=--=-=-=--=-==-=-=-=-=-=-=-");
         System.out.println("Player HP: " + playerHP);
         System.out.println("Boss HP: " + bossHP);
         System.out.println("Especial Attack: " + specialAttack);
@@ -79,7 +66,7 @@ public class Main {
     }
 
     static int PlayerAttack() {
-        System.out.println("- choose your attack! -");
+        System.out.println("\n- choose your attack! -");
         System.out.println("[ 1 ] - push attack");
         System.out.println("[ 2 ] - magic");
         System.out.println("[ 3 ] - special attack");
@@ -91,94 +78,76 @@ public class Main {
         return randomAttack.nextInt(3) + 1;
     }
 
-    static void attack(String championName) {
-        int playerHP = 100;
-        int bossHP = 120;
-        int specialAttack = 3;
-        int chooseAttack;
+    // mundos iniciais
+    static void firstWorld() {
+        System.out.println("=-=-=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-");
+        System.out.println("\nWelcome to Azarel!");
+        System.out.println("\n THE BATTLE START NOW!");
 
-        while(playerHP > 0 && bossHP > 0) {
-            gameStatus(playerHP, bossHP, specialAttack);
-            chooseAttack = PlayerAttack();
+        bossEasy();
+    }
+    
+    static void secondtWorld() {
+        System.out.println("=-=-=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-");
+        System.out.println("\nWelcome to Insomnia!");
+        System.out.println("\n THE BATTLE START NOW!");
 
-            switch (chooseAttack){
-                case 1:
-                    System.out.println("You choosed: push!");
-                    bossHP -= 30;
-                break;
+        bossEasy();
+    }
 
-                case 2:
-                    System.out.println("You choosed: magic!");
-                    bossHP -= 40;
-                break;
+    static void thirdtWorld() {
+        System.out.println("=-=-=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-");
+        System.out.println("\nWelcome to Sarquize!");
+        System.out.println("\n THE BATTLE START NOW!");
 
-                case 3:
-                    specialAttack--;
-
-                    System.out.println("You choosed: special attack!");
-                    System.out.println("You still have " + specialAttack + " special attack.");
-                    bossHP -= 70;
-                break;
-
-                default:
-                    System.out.println("Value Invalid.");
-                break;
-            }
-
-                if(bossHP > 0) {
-                    chooseAttack = BossAttack();
-
-                switch (chooseAttack) {
-                    case 1:
-                        System.out.println("Boss choosed: push!");
-                        playerHP -= 40;
-                        break;
-
-                    case 2:
-                        System.out.println("Boss choosed: magic!");
-                        playerHP -= 55;
-                        break;
-
-                    case 3:
-                        System.out.println("Boss choosed: special attack!");
-                        playerHP -= 72;
-                        specialAttack--;
-                        break;
-
-                    default:
-                        System.out.println("Boss choosed: Value Invalid.");
-                        break;
-                }
-            }
-        }
-
-        if(bossHP <= 0 || playerHP <= 0) {
-
-            if(bossHP < 0 || playerHP < 0) {
-                bossHP = 0;
-                playerHP = 0;
-            }
-            gameStatus(playerHP, bossHP, specialAttack);
-        }
-
-        // verificação de quem ganhou a partida || style dos status do Boss e do Player
-        if(bossHP <= 0) {
-            System.out.println("You Win " + championName + "!!!");
-        }
-        else if(playerHP <= 0) {
-            System.out.println("You lose ;-;");
-        }
+        bossEasy();
     }
 
 
-    // função que inializa o game
+    static int chooseWorld() {
+        System.out.println("Choose your world!");
+        System.out.println("[ 1 ] - Azarel");
+        System.out.println("[ 2 ] - Insomnia");
+        System.out.println("[ 3 ] - Sarquize");
+        return input.nextInt();
+    }
+
+    // configurações de escolhas da primeira fase || segundo menu principal de configurações
+    static void startWorld() {
+        int chooseOption;
+        chooseOption = chooseWorld();
+
+        System.out.println("=-=-=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-");
+        System.out.println("Fish! You found a monster..");
+        System.out.println("Now choose a name for your champion and fight with him!");
+        System.out.println("=-=-=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-");
+
+        CreateYourChampion();
+
+        switch (chooseOption) {
+            case 1:
+                firstWorld();
+                break;
+
+            case 2:
+                secondtWorld();
+                break;
+
+            case 3:
+                thirdtWorld();
+                break;
+        }
+    }
+
+    
+    // função que inializa o game || primeiro menu principal de configurações
     static void startGame() {
         int chooseOption;
         chooseOption = Menu();
 
         switch (chooseOption) {
             case 1:
-                ChooseChampion(chooseOption);
+                startWorld();
             break;
 
             case 2:
@@ -205,9 +174,294 @@ public class Main {
         }
     }
 
+    static void bossEasy() {
+        int playerHP = 100;
+        int bossHP = 120;
+        int specialAttack = 2;
+        int chooseAttack;
+
+        while(playerHP > 0 && bossHP > 0) {
+            gameStatus(playerHP, bossHP, specialAttack);
+            chooseAttack = PlayerAttack();
+
+            switch (chooseAttack){
+                case 1:
+                    System.out.println("YOU CHOOSED: PUSH!");
+                    bossHP -= 17;
+                    break;
+
+                case 2:
+                    System.out.println("YOU CHOOSED: MAGIC!");
+                    bossHP -= 35;
+                    break;
+
+                case 3:
+                    specialAttack--;
+
+                    System.out.println("YOU CHOOSE: SPECIAL ATTACK!");
+                    System.out.println("You still have " + specialAttack + " special attack.");
+                    bossHP -= 42;
+                    specialAttack--;
+
+
+                    if(specialAttack <= 0) {
+                        specialAttack = 0;
+
+                        System.out.println("You don't have special attack anymore..");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Value Invalid.");
+                    break;
+            }
+
+            if(bossHP > 0) {
+                chooseAttack = BossAttack();
+
+                switch (chooseAttack) {
+                    case 1:
+                        System.out.println("BOSS CHOOSED: PUSH!");
+                        playerHP -= 20;
+                        break;
+
+                    case 2:
+                        System.out.println("BOSS CHOOSED: MAGIC!");
+                        playerHP -= 32;
+                        break;
+
+                    case 3:
+                        System.out.println("BOSS CHOOSED: SPECIAL ATTACK!");
+                        playerHP -= 40;
+                        specialAttack--;
+
+
+                        if(specialAttack <= 0) {
+                            specialAttack = 0;
+
+                            System.out.println("You don't have special attack anymore..");
+                        }
+                        break;
+
+                    default:
+                        System.out.println("Boss choosed: Value Invalid.");
+                        break;
+                }
+            }
+        }
+
+        if(bossHP <= 0 || playerHP <= 0) {
+
+            if(bossHP < 0 || playerHP < 0) {
+                bossHP = 0;
+                playerHP = 0;
+            }
+            gameStatus(playerHP, bossHP, specialAttack);
+        }
+
+        // verificação de quem ganhou a partida || style dos status do Boss e do Player
+        if(bossHP <= 0) {
+            System.out.println("\nYou Win!");
+            bossMedium();
+        }
+        else if(playerHP <= 0) {
+            System.out.println("\nYou lose ;-;");
+        }
+    }
+
+
+    static void bossMedium() {
+        int playerHP = 200;
+        int bossHP = 230;
+        int specialAttack = 3;
+        int chooseAttack;
+
+        while(playerHP > 0 && bossHP > 0) {
+            gameStatus(playerHP, bossHP, specialAttack);
+            chooseAttack = PlayerAttack();
+
+            switch (chooseAttack){
+                case 1:
+                    System.out.println("You choosed: push!");
+                    bossHP -= 40;
+                    break;
+
+                case 2:
+                    System.out.println("You choosed: magic!");
+                    bossHP -= 55;
+                    break;
+
+                case 3:
+                    specialAttack--;
+
+                    System.out.println("You choosed: special attack!");
+                    System.out.println("You still have " + specialAttack + " special attack.");
+                    bossHP -= 60;
+                    specialAttack--;
+
+                    if(specialAttack <= 0) {
+                        specialAttack = 0;
+
+                        System.out.println("You don't have special attack anymore..");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Value Invalid.");
+                    break;
+            }
+
+            if(bossHP > 0) {
+                chooseAttack = BossAttack();
+
+                switch (chooseAttack) {
+                    case 1:
+                        System.out.println("Boss choosed: push!");
+                        playerHP -= 42;
+                        break;
+
+                    case 2:
+                        System.out.println("Boss choosed: magic!");
+                        playerHP -= 53;
+                        break;
+
+                    case 3:
+                        System.out.println("Boss choosed: special attack!");
+                        playerHP -= 65;
+                        specialAttack--;
+
+
+                        if(specialAttack <= 0) {
+                            specialAttack = 0;
+
+                            System.out.println("Boss don't have special attack anymore..");
+                        }
+                        break;
+
+                    default:
+                        System.out.println("Boss choosed: Value Invalid.");
+                        break;
+                }
+            }
+        }
+
+        if(bossHP <= 0 || playerHP <= 0) {
+
+            if(bossHP < 0 || playerHP < 0) {
+                bossHP = 0;
+                playerHP = 0;
+            }
+            gameStatus(playerHP, bossHP, specialAttack);
+        }
+
+        // verificação de quem ganhou a partida || style dos status do Boss e do Player
+        if(bossHP <= 0) {
+            System.out.println("\nYou Win!");
+            bossHard();
+        }
+        else if(playerHP <= 0) {
+            System.out.println("\nYou lose ;-;");
+        }
+    }
+
+
+    static void bossHard() {
+        int playerHP = 300;
+        int bossHP = 360;
+        int specialAttack = 3;
+        int chooseAttack;
+
+        while(playerHP > 0 && bossHP > 0) {
+            gameStatus(playerHP, bossHP, specialAttack);
+            chooseAttack = PlayerAttack();
+
+            switch (chooseAttack){
+                case 1:
+                    System.out.println("You choosed: push!");
+                    bossHP -= 52;
+                    break;
+
+                case 2:
+                    System.out.println("You choosed: magic!");
+                    bossHP -= 58;
+                    break;
+
+                case 3:
+                    specialAttack--;
+
+                    System.out.println("You choosed: special attack!");
+                    System.out.println("You still have " + specialAttack + " special attack.");
+                    bossHP -= 75;
+                    specialAttack--;
+
+                    if(specialAttack <= 0) {
+                        specialAttack = 0;
+
+                        System.out.println("You don't have special attack anymore..");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Value Invalid.");
+                    break;
+            }
+
+            if(bossHP > 0) {
+                chooseAttack = BossAttack();
+
+                // 52, 58, 75
+                switch (chooseAttack) {
+                    case 1:
+                        System.out.println("Boss choosed: push!");
+                        playerHP -= 55;
+                        break;
+
+                    case 2:
+                        System.out.println("Boss choosed: magic!");
+                        playerHP -= 60;
+                        break;
+
+                    case 3:
+                        System.out.println("Boss choosed: special attack!");
+                        playerHP -= 72;
+                        specialAttack--;
+
+                        if(specialAttack <= 0) {
+                            specialAttack = 0;
+
+                            System.out.println("Boss don't have special attack anymore..");
+                        }
+                        break;
+
+                    default:
+                        System.out.println("Boss choosed: Value Invalid.");
+                        break;
+                }
+            }
+        }
+
+        if(bossHP <= 0 || playerHP <= 0) {
+
+            if(bossHP < 0 || playerHP < 0) {
+                bossHP = 0;
+                playerHP = 0;
+            }
+            gameStatus(playerHP, bossHP, specialAttack);
+        }
+
+        // verificação de quem ganhou a partida || style dos status do Boss e do Player
+        if(bossHP <= 0) {
+            System.out.println("\nYou Win!");
+
+        }
+        else if(playerHP <= 0) {
+            System.out.println("\nYou lose ;-;");
+        }
+    }
+
+
 
     public static void main(String[] args) {
         startGame();
-        CreateYourChampion();
     }
 }
