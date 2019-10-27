@@ -9,7 +9,6 @@
 
 ![0b26f07b-ccf7-416d-8f67-2b43186e7875 (2)](https://user-images.githubusercontent.com/56616755/67612729-a0a95200-f77b-11e9-99ac-79419dbf35f3.jpg)
 
-![4ca6e3a7-c6a6-4fe8-882a-c81ead806145](https://user-images.githubusercontent.com/56616755/67627818-eaf10880-f839-11e9-8281-609133ee7383.jpg)
 
 
 ### :video_game: Sobre o Projeto Proposto
